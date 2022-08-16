@@ -33,4 +33,4 @@ WebApp.showAlert('Hey there!');
 ```
 
 ### Demo
-[Codesandbox](https://codesandbox.io/s/back-button-demo-lpc0rv)
+[Codesandbox](https://codesandbox.io/s/sdk-kj5961)
