@@ -1,0 +1,9 @@
+{
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "node": false,
+    "browser": true
+  },
+  "ignorePatterns": ["telegram-web-apps.js"]
+}
