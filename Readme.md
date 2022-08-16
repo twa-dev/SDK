@@ -24,13 +24,15 @@ Telegram distributes SDK via [link](https://core.telegram.org/bots/webapps#initi
 </html>
 ```
 
-This package allows to work with SDK as with general module:
+This package allows to work with SDK as with JS module:
 
 ```js
 import WebApp from '@twa-dev/sdk'
 
 WebApp.showAlert('Hey there!');
 ```
+
+And yes, it supports TS.
 
 ### Demo
 [Codesandbox](https://codesandbox.io/s/sdk-kj5961)
