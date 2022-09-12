@@ -1,6 +1,6 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "0.0.3-rc.0",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "exports": {
     ".": {
@@ -14,7 +14,9 @@
   },
   "typesVersions": {
     "*": {
-      "react": ["./dist/react/index.d.ts"]
+      "react": [
+        "./dist/react/index.d.ts"
+      ]
     }
   },
   "sideEffects": false,
