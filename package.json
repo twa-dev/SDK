@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "eslint --ext .ts,.tsx ./",
-    "build": "tsc --outDir dist/"
+    "build": "rm -rf dist && yarn test && tsc --outDir dist/"
   },
   "dependencies": {
     "@twa-dev/types": "^6.2.2"
