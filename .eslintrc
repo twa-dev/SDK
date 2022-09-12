@@ -1,9 +1,19 @@
 {
-  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "env": {
     "node": false,
     "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "ignorePatterns": ["telegram-web-apps.js"]
 }

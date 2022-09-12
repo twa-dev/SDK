@@ -36,3 +36,7 @@ And yes, it supports TS.
 
 ### Demo
 [Codesandbox](https://codesandbox.io/s/sdk-kj5961)
+
+### React
+If you use React in your project, check out [MainButton](src/react/MainButton/Readme.md) and [BackButton](src/react/BackButton/Readme.md) components that we have prepared for you.
+These components significantly simplify developer experience.
