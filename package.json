@@ -1,6 +1,6 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "0.0.3",
+  "version": "0.0.3-rc.0",
   "main": "dist/index.js",
   "exports": {
     ".": {
