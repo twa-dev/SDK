@@ -12,6 +12,11 @@
       "types": "./dist/react/index.d.ts"
     }
   },
+  "typesVersions": {
+    "*": {
+      "react": ["./dist/react/index.d.ts"]
+    }
+  },
   "sideEffects": false,
   "repository": "https://github.com/twa-dev/sdk.git",
   "keywords": [
