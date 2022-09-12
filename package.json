@@ -1,7 +1,23 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "0.0.3",
+  "version": "0.0.3-rc.0",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "react": ["./dist/react/index.d.ts"]
+    }
+  },
+  "sideEffects": false,
   "repository": "https://github.com/twa-dev/sdk.git",
   "keywords": [
     "telegram",
@@ -13,19 +29,25 @@
   "author": "Artur Stambultsian <bumbledos@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^18.0.19",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.31.8",
     "prettier": "^2.7.1",
+    "react": "^18.2.0",
     "typescript": "^4.7.4",
     "yarn-release": "^1.10.3"
   },
   "scripts": {
     "test": "eslint --ext .ts,.tsx ./",
-    "build": "tsc --outDir dist/"
+    "build": "rm -rf dist && yarn test && tsc --outDir dist/"
   },
   "dependencies": {
     "@twa-dev/types": "^6.2.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0"
   }
 }
