@@ -21,7 +21,7 @@
       ]
     }
   },
-  "sideEffects": false,
+  "sideEffects": ["telegram-web-app.js"],
   "repository": "https://github.com/twa-dev/sdk.git",
   "keywords": [
     "telegram",
