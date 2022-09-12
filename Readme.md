@@ -24,7 +24,7 @@ Telegram distributes SDK via [link](https://core.telegram.org/bots/webapps#initi
 </html>
 ```
 
-This package allows to work with SDK as with JS module:
+This package allows to work with SDK as with an npm package:
 
 ```js
 import WebApp from '@twa-dev/sdk'
