@@ -4,10 +4,12 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "default": "./dist/index.js",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./react": {
+      "default": "./dist/react/index.js",
       "import": "./dist/react/index.js",
       "types": "./dist/react/index.d.ts"
     }
