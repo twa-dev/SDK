@@ -51,7 +51,7 @@
     "build": "rm -rf dist && yarn test && tsc --outDir dist/"
   },
   "dependencies": {
-    "@twa-dev/types": "^6.2.2"
+    "@twa-dev/types": "^6.2.4"
   },
   "peerDependencies": {
     "react": ">=16.0.0"
