@@ -1,6 +1,11 @@
 # BackButton
 React component for [Telegram Web Apps (TWA)](https://core.telegram.org/bots/webapps) Back Button.
 
+## Installation
+```bash
+npm i @twa-dev/sdk
+```
+
 ## Motivation
 TWA SDK contains an interface that controls [BackButton](https://core.telegram.org/bots/webapps#backbutton). It's written in imperative way:
 
