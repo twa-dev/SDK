@@ -57,10 +57,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@twa-dev/types@^6.2.4":
-  version "6.2.4"
-  resolved "https://registry.yarnpkg.com/@twa-dev/types/-/types-6.2.4.tgz#860b2e297c1df75e857a5f6a23d98a3850c3d4c6"
-  integrity sha512-CEO+xdrMm6PkkGkthTWaVqmjtFafDBkCTIjsS/1YrEiKn90Hh6KoWKeDK3gikYANTrCrrGaJh5uaKVWR5yjPHQ==
+"@twa-dev/types@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@twa-dev/types/-/types-6.4.0.tgz#71503d1d9ea375d18fcfe388b3915a9e122b8805"
+  integrity sha512-zYLvE9mfS5jBZrz76UQiEgJMrrBB6PvTdBkP4bqP/Pm/SScpKt+XKTj3GJHU3oqXlEF/4gVsreIqfl821KG+ow==
 
 "@types/json-schema@^7.0.9":
   version "7.0.11"

@@ -53,7 +53,7 @@
     "deploy": "yarn build && yarn release - --tag --commit --push --public"
   },
   "dependencies": {
-    "@twa-dev/types": "^6.2.4"
+    "@twa-dev/types": "^6.4.0"
   },
   "peerDependencies": {
     "react": ">=16.0.0"
