@@ -1,7 +1,7 @@
 ## SDK
 [![npm version](https://img.shields.io/npm/v/@twa-dev/sdk)](https://www.npmjs.com/package/@twa-dev/sdk)
 
-npm package for TWA SDK.
+npm package for [Telegram Web Apps (TWA)](https://core.telegram.org/bots/webapps) SDK.
 
 ```
 npm i @twa-dev/sdk
