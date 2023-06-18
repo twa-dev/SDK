@@ -1,6 +1,6 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "6.4.2",
+  "version": "6.7.0",
   "main": "dist/index.js",
   "type": "module",
   "exports": {
