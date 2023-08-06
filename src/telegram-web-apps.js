@@ -471,7 +471,7 @@
           themeParams.bg_color == color_key) {
         color_key = 'bg_color';
       } else if (themeParams.secondary_bg_color &&
-          themeParams.secondary_bg_color == color_key) {
+                 themeParams.secondary_bg_color == color_key) {
         color_key = 'secondary_bg_color';
       } else {
         color_key = false;
@@ -1121,6 +1121,41 @@
     }
     WebView.postEvent('web_app_data_send', false, {data: data});
   };
+  WebApp.switchInlineQuery = function (query, choose_chat_types) {
+    if (!versionAtLeast('6.6')) {
+      console.error('[Telegram.WebApp] Method switchInlineQuery is not supported in version ' + webAppVersion);
+      throw Error('WebAppMethodUnsupported');
+    }
+    if (!initParams.tgWebAppBotInline) {
+      console.error('[Telegram.WebApp] Inline mode is disabled for this bot. Read more about inline mode: https://core.telegram.org/bots/inline');
+      throw Error('WebAppInlineModeDisabled');
+    }
+    query = query || '';
+    if (query.length > 256) {
+      console.error('[Telegram.WebApp] Inline query is too long', query);
+      throw Error('WebAppInlineQueryInvalid');
+    }
+    var chat_types = [];
+    if (choose_chat_types) {
+      if (!Array.isArray(choose_chat_types)) {
+        console.error('[Telegram.WebApp] Choose chat types should be an array', choose_chat_types);
+        throw Error('WebAppInlineChooseChatTypesInvalid');
+      }
+      var good_types = {users: 1, bots: 1, groups: 1, channels: 1};
+      for (var i = 0; i < choose_chat_types.length; i++) {
+        var chat_type = choose_chat_types[i];
+        if (!good_types[chat_type]) {
+          console.error('[Telegram.WebApp] Choose chat type is invalid', chat_type);
+          throw Error('WebAppInlineChooseChatTypeInvalid');
+        }
+        if (good_types[chat_type] != 2) {
+          good_types[chat_type] = 2;
+          chat_types.push(chat_type);
+        }
+      }
+    }
+    WebView.postEvent('web_app_switch_inline_query', false, {query: query, chat_types: chat_types});
+  };
   WebApp.openLink = function (url, options) {
     var a = document.createElement('A');
     a.href = url;
@@ -1244,7 +1279,7 @@
             button_type == 'cancel') {
           // no params needed
         } else if (button_type == 'default' ||
-            button_type == 'destructive') {
+                   button_type == 'destructive') {
           var text = '';
           if (typeof button.text !== 'undefined') {
             text = strTrim(button.text);
