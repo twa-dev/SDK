@@ -1,6 +1,6 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "6.7.1",
+  "version": "6.9.0",
   "main": "dist/index.js",
   "type": "module",
   "exports": {
@@ -53,7 +53,7 @@
     "deploy": "yarn build && yarn release - --tag --commit --push --public"
   },
   "dependencies": {
-    "@twa-dev/types": "^6.7.0"
+    "@twa-dev/types": "^6.0.0"
   },
   "peerDependencies": {
     "react": ">=16.0.0"
