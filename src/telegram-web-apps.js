@@ -33,7 +33,14 @@
           return;
         }
         if (dataParsed.eventType == 'set_custom_style') {
-          iFrameStyle.innerHTML = dataParsed.eventData;
+          if (event.origin === 'https://web.telegram.org') {
+            iFrameStyle.innerHTML = dataParsed.eventData;
+          }
+        } else if (dataParsed.eventType == 'reload_iframe') {
+          try {
+            window.parent.postMessage(JSON.stringify({eventType: 'iframe_will_reload'}), '*');
+          } catch (e) {}
+          location.reload();
         } else {
           receiveEvent(dataParsed.eventType, dataParsed.eventData);
         }
@@ -41,7 +48,7 @@
       iFrameStyle = document.createElement('style');
       document.head.appendChild(iFrameStyle);
       try {
-        window.parent.postMessage(JSON.stringify({eventType: 'iframe_ready'}), '*');
+        window.parent.postMessage(JSON.stringify({eventType: 'iframe_ready', eventData: {reload_supported: true}}), '*');
       } catch (e) {}
     }
   } catch (e) {}
@@ -926,10 +933,84 @@
     return mainButton;
   })();
 
-  function onSettingsButtonPressed() {
-    receiveWebViewEvent('settingsButtonClicked');
-  }
-  WebView.onEvent('settings_button_pressed', onSettingsButtonPressed);
+  var SettingsButton = (function() {
+    var isVisible = false;
+
+    var settingsButton = {};
+    Object.defineProperty(settingsButton, 'isVisible', {
+      set: function(val){ setParams({is_visible: val}); },
+      get: function(){ return isVisible; },
+      enumerable: true
+    });
+
+    var curButtonState = null;
+
+    WebView.onEvent('settings_button_pressed', onSettingsButtonPressed);
+
+    function onSettingsButtonPressed() {
+      receiveWebViewEvent('settingsButtonClicked');
+    }
+
+    function buttonParams() {
+      return {is_visible: isVisible};
+    }
+
+    function buttonState(btn_params) {
+      if (typeof btn_params === 'undefined') {
+        btn_params = buttonParams();
+      }
+      return JSON.stringify(btn_params);
+    }
+
+    function buttonCheckVersion() {
+      if (!versionAtLeast('6.10')) {
+        console.warn('[Telegram.WebApp] SettingsButton is not supported in version ' + webAppVersion);
+        return false;
+      }
+      return true;
+    }
+
+    function updateButton() {
+      var btn_params = buttonParams();
+      var btn_state = buttonState(btn_params);
+      if (curButtonState === btn_state) {
+        return;
+      }
+      curButtonState = btn_state;
+      WebView.postEvent('web_app_setup_settings_button', false, btn_params);
+    }
+
+    function setParams(params) {
+      if (!buttonCheckVersion()) {
+        return settingsButton;
+      }
+      if (typeof params.is_visible !== 'undefined') {
+        isVisible = !!params.is_visible;
+      }
+      updateButton();
+      return settingsButton;
+    }
+
+    settingsButton.onClick = function(callback) {
+      if (buttonCheckVersion()) {
+        onWebViewEvent('settingsButtonClicked', callback);
+      }
+      return settingsButton;
+    };
+    settingsButton.offClick = function(callback) {
+      if (buttonCheckVersion()) {
+        offWebViewEvent('settingsButtonClicked', callback);
+      }
+      return settingsButton;
+    };
+    settingsButton.show = function() {
+      return setParams({is_visible: true});
+    };
+    settingsButton.hide = function() {
+      return setParams({is_visible: false});
+    };
+    return settingsButton;
+  })();
 
   var HapticFeedback = (function() {
     var hapticFeedback = {};
@@ -1100,17 +1181,62 @@
     }
   }
 
+  function getRequestedContact(callback, timeout) {
+    var reqTo, fallbackTo, reqDelay = 0;
+    var reqInvoke = function() {
+      invokeCustomMethod('getRequestedContact', {}, function(err, res) {
+        if (res && res.length) {
+          clearTimeout(fallbackTo);
+          callback(res);
+        } else {
+          reqDelay += 50;
+          reqTo = setTimeout(reqInvoke, reqDelay);
+        }
+      });
+    };
+    var fallbackInvoke = function() {
+      clearTimeout(reqTo);
+      callback('');
+    };
+    fallbackTo = setTimeout(fallbackInvoke, timeout);
+    reqInvoke();
+  }
+
   var WebAppContactRequested = false;
   function onPhoneRequested(eventType, eventData) {
     if (WebAppContactRequested) {
       var requestData = WebAppContactRequested;
       WebAppContactRequested = false;
-      if (requestData.callback) {
-        requestData.callback(eventData.status == 'sent');
-      }
-      receiveWebViewEvent('contactRequested', {
+      var requestSent = eventData.status == 'sent';
+      var webViewEvent = {
         status: eventData.status
-      });
+      };
+      if (requestSent) {
+        getRequestedContact(function(res) {
+          if (res && res.length) {
+            webViewEvent.response = res;
+            webViewEvent.responseUnsafe = Utils.urlParseQueryString(res);
+            for (var key in webViewEvent.responseUnsafe) {
+              var val = webViewEvent.responseUnsafe[key];
+              try {
+                if (val.substr(0, 1) == '{' && val.substr(-1) == '}' ||
+                    val.substr(0, 1) == '[' && val.substr(-1) == ']') {
+                  webViewEvent.responseUnsafe[key] = JSON.parse(val);
+                }
+              } catch (e) {}
+            }
+          }
+          if (requestData.callback) {
+            requestData.callback(requestSent, webViewEvent);
+          }
+          receiveWebViewEvent('contactRequested', webViewEvent);
+        }, 3000);
+      } else {
+        if (requestData.callback) {
+          requestData.callback(requestSent, webViewEvent);
+        }
+        receiveWebViewEvent('contactRequested', webViewEvent);
+      }
     }
   }
 
@@ -1205,6 +1331,10 @@
   });
   Object.defineProperty(WebApp, 'MainButton', {
     value: MainButton,
+    enumerable: true
+  });
+  Object.defineProperty(WebApp, 'SettingsButton', {
+    value: SettingsButton,
     enumerable: true
   });
   Object.defineProperty(WebApp, 'HapticFeedback', {
@@ -1552,6 +1682,9 @@
   updateHeaderColor();
   updateBackgroundColor();
   setViewportHeight();
+  if (initParams.tgWebAppShowSettings) {
+    SettingsButton.show();
+  }
 
   window.addEventListener('resize', onWindowResize);
   if (isIframe) {
