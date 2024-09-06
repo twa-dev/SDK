@@ -7,3 +7,4 @@ tsconfig.json
 .prettierrc
 .gitignore
 *.log
+.github/
