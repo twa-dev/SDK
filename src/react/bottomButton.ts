@@ -58,7 +58,7 @@ export const useBottomButton = ({
         if (!isButtonShown[type]) {
           button.hide();
         }
-      });
+      }, 10);
     };
   }, [type]);
 
