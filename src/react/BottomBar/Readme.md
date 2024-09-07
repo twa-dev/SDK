@@ -1,4 +1,4 @@
-# SecondaryButton
+# BottomBar
 React component for [Telegram Web Apps (TWA)](https://core.telegram.org/bots/webapps) bottom bar. Bottom bar is an area that wraps [Main](../MainButton/Readme.md) and [Secondary](../SecondaryButton/Readme.md) buttons.
 
 ## Installation
