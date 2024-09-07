@@ -15,5 +15,8 @@
       "jsx": true
     }
   },
-  "ignorePatterns": ["telegram-web-apps.js"]
+  "ignorePatterns": ["telegram-web-apps.js"],
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  }
 }

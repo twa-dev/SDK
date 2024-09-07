@@ -9,7 +9,7 @@ npm i @twa-dev/sdk
 ## Motivation
 TWA SDK contains an interface that controls [BackButton](https://core.telegram.org/bots/webapps#backbutton). It's written in imperative way:
 
-```js
+```jsx
 const BackButton = window.Telegram.WebApp.BackButton;
 
 BackButton.show();

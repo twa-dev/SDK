@@ -1,5 +1,5 @@
 # MainButton
-React component for [Telegram Web Apps (TWA)](https://core.telegram.org/bots/webapps) Main Button.
+React component for [Telegram Web Apps (TWA)](https://core.telegram.org/bots/webapps) MainButton.
 
 ## Installation
 ```bash
@@ -21,16 +21,16 @@ It's not the best way to write code, especially if you use libraries like React.
 
 This package exports React component that wraps TWA MainButton SDK:
 
-```js
+```jsx
 import { MainButton } from '@twa-dev/sdk/react';
 
 <MainButton text="Submit" onClick={() => alert('submitted')} />
 ```
 
 ## Demo
-[@MainButtonDemoBot](https://t.me/MainButtonDemoBot)
+[@BottomButtonBot](https://t.me/BottomButtonBot)
 
-[Codesandbox](https://codesandbox.io/s/main-button-demo-732l5z)
+[Codesandbox](https://codesandbox.io/p/sandbox/bottom-button-demo-s8wdgp)
 
 ## Props
 Naming is pretty straight forward and corresponds SDK props and methods:
@@ -40,3 +40,4 @@ Naming is pretty straight forward and corresponds SDK props and methods:
 - `disabled`
 - `progress`
 - `onClick`
+- `hasShineEffect`
