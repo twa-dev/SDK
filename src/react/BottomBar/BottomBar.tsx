@@ -22,5 +22,5 @@ export const BottomBar = ({
     };
   }, []);
 
-  return children;
+  return <>{children}</>;
 };
