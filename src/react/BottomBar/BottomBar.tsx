@@ -7,7 +7,7 @@ const defaultBottomBarColor =
 
 export const BottomBar = ({
   bgColor = defaultBottomBarColor,
-  children,
+  children = null,
 }: {
   bgColor?: string;
   children?: ReactNode;
