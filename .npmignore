@@ -1,6 +1,5 @@
 .idea/
 node_modules/
-src/
 tsconfig.json
 .eslintrc
 .eslintignore
