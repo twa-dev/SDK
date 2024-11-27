@@ -1,6 +1,6 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "7.10.1",
+  "version": "8.0.1",
   "main": "dist/index.js",
   "sideEffects": [
     "./dist/telegram-web-apps.js"
@@ -50,7 +50,7 @@
     "build": "rm -rf dist && npm run test && tsc --outDir dist/"
   },
   "dependencies": {
-    "@twa-dev/types": "^7.10.0"
+    "@twa-dev/types": "^8.0.1"
   },
   "peerDependencies": {
     "react": "^18.3.1"
