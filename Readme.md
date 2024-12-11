@@ -15,7 +15,7 @@ Telegram distributes SDK via [link](https://core.telegram.org/bots/webapps#initi
 <head>
     <title>TWA</title>
     <meta charset="UTF-8">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script>
         window.Telegram.WebApp.showAlert('Hey there!');
     </script>
