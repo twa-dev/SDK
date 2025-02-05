@@ -1,6 +1,6 @@
 {
   "name": "@twa-dev/sdk",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "main": "dist/index.js",
   "sideEffects": [
     "./dist/telegram-web-apps.js"
